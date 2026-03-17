@@ -10,10 +10,6 @@ import {
   displayStatusSortOrder,
   getDisplayInspectionStatus,
 } from '../inspectionStatus';
-import {
-  hydrateInspectionTitles,
-  rememberInspectionTitles,
-} from '../inspectionTitlePersistence';
 
 type StatusFilter = 'ALL' | DisplayInspectionStatus;
 type SortOption =
@@ -134,11 +130,7 @@ export default function InspectionsList() {
         const errors: string[] = [];
 
         if (inspectionsResult.status === 'fulfilled') {
-          const hydratedInspections = hydrateInspectionTitles(
-            inspectionsResult.value,
-          );
-          rememberInspectionTitles(hydratedInspections);
-          setInspections(hydratedInspections);
+          setInspections(inspectionsResult.value);
         } else {
           setInspections([]);
           errors.push('Failed to load inspections.');
@@ -307,7 +299,6 @@ export default function InspectionsList() {
       const resolvedTitle =
         created.title?.trim() || normalizedTitle || undefined;
       const nextInspection = { ...created, title: resolvedTitle };
-      rememberInspectionTitles([nextInspection]);
       setInspections((prev) => [...prev, nextInspection]);
       setForm(createEmptyForm());
       closeModal();
@@ -335,7 +326,7 @@ export default function InspectionsList() {
 
       {loadError && <div className="error-msg">{loadError}</div>}
 
-  {/* Status filter buttons and text search */}
+      {/* Status filter buttons and text search */}
       <div className="filter-bar">
         {(
           [
@@ -364,7 +355,7 @@ export default function InspectionsList() {
         />
       </div>
 
-  {/* Main table area with loading and empty states */}
+      {/* Main table area with loading and empty states */}
       <div className="card" style={{ padding: 0 }}>
         {loading ? (
           <div className="loading">Loading...</div>
