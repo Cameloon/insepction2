@@ -1,0 +1,15 @@
+.checklist-steps {
+	border-top: 1px solid #eee4f8;
+	margin-top: 1rem;
+	padding-top: 1rem;
+}
+.checklist-step-item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.6rem 0.75rem;
+	background: #f8f3ff;
+	border-radius: 6px;
+	margin-bottom: 0.4rem;
+	font-size: 0.9rem;
+}

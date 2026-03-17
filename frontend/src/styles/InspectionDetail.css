@@ -1,0 +1,119 @@
+.inspection-info-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+.info-item label {
+	display: block;
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--color-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin-bottom: 0.2rem;
+}
+.info-item span {
+	font-size: 0.95rem;
+	color: var(--color-text);
+	font-weight: 500;
+}
+
+.step-row {
+	background: var(--color-surface);
+	border: 1.5px solid var(--color-border);
+	border-radius: 8px;
+	padding: 1rem 1.25rem;
+	margin-bottom: 0.75rem;
+	transition: border-color 0.15s;
+}
+.step-row.fulfilled {
+	border-color: var(--color-accent);
+	background: rgba(242, 136, 72, 0.15);
+}
+.step-row.not-fulfilled {
+	border-color: var(--color-stat-failed);
+	background: rgba(240, 146, 173, 0.15);
+}
+.step-row.na {
+	border-color: rgba(95, 90, 102, 0.4);
+	background: rgba(95, 90, 102, 0.1);
+}
+.step-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.step-title {
+	font-weight: 600;
+	font-size: 0.95rem;
+	color: var(--color-text);
+}
+.step-description {
+	font-size: 0.85rem;
+	color: var(--color-muted);
+	margin-top: 0.2rem;
+}
+.step-actions {
+	display: flex;
+	gap: 0.4rem;
+	flex-shrink: 0;
+}
+.result-btn {
+	padding: 0.3rem 0.65rem;
+	border: 1.5px solid transparent;
+	border-radius: 6px;
+	font-size: 0.8rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.15s;
+	white-space: nowrap;
+}
+.result-btn-fulfilled {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+	background: white;
+}
+.result-btn-fulfilled.active {
+	background: rgba(242, 136, 72, 0.25);
+	color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+.result-btn-fulfilled:hover {
+	background: rgba(242, 136, 72, 0.25);
+	color: var(--color-accent);
+}
+.result-btn-not-fulfilled {
+	border-color: var(--color-stat-failed);
+	color: var(--color-stat-failed);
+	background: white;
+}
+.result-btn-not-fulfilled.active {
+	background: rgba(240, 146, 173, 0.25);
+	color: var(--color-stat-failed);
+	border-color: var(--color-stat-failed);
+}
+.result-btn-not-fulfilled:hover {
+	background: rgba(240, 146, 173, 0.25);
+	color: var(--color-stat-failed);
+}
+.result-btn-na {
+	border-color: var(--color-border);
+	color: var(--color-muted);
+	background: white;
+}
+.result-btn-na.active {
+	background: rgba(95, 90, 102, 0.2);
+	color: var(--color-danger);
+	border-color: var(--color-danger);
+}
+.result-btn-na:hover {
+	background: rgba(95, 90, 102, 0.2);
+	color: var(--color-danger);
+	border-color: var(--color-danger);
+}
+.result-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

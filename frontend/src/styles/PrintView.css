@@ -1,0 +1,83 @@
+@page {
+	size: A4 portrait;
+	margin: 10mm;
+}
+@media print {
+	.no-print {
+		display: none !important;
+	}
+	html,
+	body {
+		background: #fff;
+		margin: 0;
+		padding: 0;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+	.print-container {
+		/* allow full page width for printing */
+		max-width: 100% !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 10mm !important;
+		background: #fff !important;
+		box-shadow: none !important;
+		border-radius: 0 !important;
+		box-sizing: border-box;
+	}
+	.step-row {
+		break-inside: avoid;
+	}
+	img {
+		max-width: 100% !important;
+		height: auto !important;
+	}
+}
+.print-container {
+	/* wider for on-screen print preview to match printed PDF width */
+	max-width: 700px !important;
+	width: min(700px, 96vw) !important;
+	margin: 0 auto;
+	padding: 2rem;
+	background: var(--color-surface);
+}
+.print-header {
+	border-bottom: 2px solid var(--color-secondary);
+	padding-bottom: 1rem;
+	margin-bottom: 1.5rem;
+}
+.print-title {
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: var(--color-text);
+}
+.print-meta {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 0.75rem;
+	margin: 1rem 0 1.5rem;
+}
+.print-meta-item label {
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: var(--color-muted);
+	text-transform: uppercase;
+}
+.print-meta-item span {
+	display: block;
+	font-size: 0.95rem;
+	color: var(--color-text);
+}
+.print-step {
+	border: 1px solid var(--color-border);
+	border-radius: 6px;
+	padding: 0.85rem 1rem;
+	margin-bottom: 0.6rem;
+}
+.print-step-title {
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+.print-step-result {
+	float: right;
+}

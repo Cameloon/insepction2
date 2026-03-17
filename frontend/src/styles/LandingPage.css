@@ -1,0 +1,129 @@
+/* Overall landing page container */
+.landing-page {
+	width: 100%;
+}
+
+/* Hero section layout and visual style */
+.hero {
+	background: linear-gradient(135deg, rgb(242, 136, 72), #6f647f);
+	color: white;
+	border-radius: 16px;
+	padding: 4rem 3rem;
+	margin-bottom: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+}
+
+/* Left hero content block */
+.hero-content {
+	max-width: 800px;
+	flex: 1;
+}
+
+/* Hero image wrapper for centering and responsive sizing */
+.hero-image-wrapper {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 260px;
+}
+
+/* Hero image positioning and shadow */
+.hero-image {
+	margin-right: 100px;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	max-width: 460px;
+	height: auto;
+	filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.18));
+}
+
+/* Hero image sizing */
+.hero-img {
+	width: 100%;
+	max-width: 260px;
+	height: auto;
+}
+
+/* Hero typography */
+.hero-title {
+	font-size: 2.8rem;
+	font-weight: 800;
+	line-height: 1.15;
+	margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+	font-size: 1.1rem;
+	opacity: 0.95;
+	margin-bottom: 1.5rem;
+	max-width: 700px;
+}
+
+/* Hero action buttons row */
+.hero-actions {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+
+/* Generic landing section spacing */
+.landing-section {
+	margin-bottom: 2rem;
+}
+
+.landing-section h2 {
+	font-size: 1.6rem;
+	margin-bottom: 1rem;
+	color: #1a202c;
+}
+
+/* Responsive feature card grid */
+.landing-features {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: 1rem;
+}
+
+/* Individual feature card style */
+.landing-feature-card {
+	background: white;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.landing-feature-card h3 {
+	font-size: 1.05rem;
+	margin-bottom: 0.6rem;
+}
+
+.landing-feature-card p {
+	color: #4a5568;
+	font-size: 0.95rem;
+}
+
+/* Highlight section card */
+.landing-highlight {
+	background: white;
+	border-radius: 12px;
+	padding: 1.5rem;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Tablet/mobile adjustments for hero section */
+@media (max-width: 960px) {
+	.hero {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 3rem 1.5rem;
+	}
+
+	.hero-image-wrapper {
+		width: 100%;
+	}
+}
