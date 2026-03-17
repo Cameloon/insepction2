@@ -16,6 +16,7 @@ public class Inspection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
     private String facilityName;
     private LocalDate date;
     private String responsibleEmployee;
@@ -28,6 +29,9 @@ public class Inspection {
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
     public String getFacilityName() { return facilityName; }
     public void setFacilityName(String facilityName) { this.facilityName = facilityName; }

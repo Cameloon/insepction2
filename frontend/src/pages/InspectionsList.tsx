@@ -10,10 +10,6 @@ import {
   displayStatusSortOrder,
   getDisplayInspectionStatus,
 } from '../inspectionStatus';
-import {
-  hydrateInspectionTitles,
-  rememberInspectionTitles,
-} from '../inspectionTitlePersistence';
 
 type StatusFilter = 'ALL' | DisplayInspectionStatus;
 type SortOption =
@@ -134,11 +130,7 @@ export default function InspectionsList() {
         const errors: string[] = [];
 
         if (inspectionsResult.status === 'fulfilled') {
-          const hydratedInspections = hydrateInspectionTitles(
-            inspectionsResult.value,
-          );
-          rememberInspectionTitles(hydratedInspections);
-          setInspections(hydratedInspections);
+          setInspections(inspectionsResult.value);
         } else {
           setInspections([]);
           errors.push('Failed to load inspections.');
@@ -304,11 +296,7 @@ export default function InspectionsList() {
         status: 'PLANNED',
         steps,
       });
-      const resolvedTitle =
-        created.title?.trim() || normalizedTitle || undefined;
-      const nextInspection = { ...created, title: resolvedTitle };
-      rememberInspectionTitles([nextInspection]);
-      setInspections((prev) => [...prev, nextInspection]);
+      setInspections((prev) => [...prev, created]);
       setForm(createEmptyForm());
       closeModal();
     } catch {

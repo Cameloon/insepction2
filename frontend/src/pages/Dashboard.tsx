@@ -20,10 +20,6 @@ import {
   DisplayInspectionStatus,
   getDisplayInspectionStatus,
 } from '../inspectionStatus';
-import {
-  hydrateInspectionTitles,
-  rememberInspectionTitles,
-} from '../inspectionTitlePersistence';
 
 const STATUS_COLORS: Record<string, string> = {
   Planned: '#7a6ea8',
@@ -45,13 +41,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // Load inspections once, then hydrate and persist title fallbacks.
+  // Load inspections once.
   useEffect(() => {
     getInspections()
       .then((data) => {
-        const hydratedInspections = hydrateInspectionTitles(data);
-        rememberInspectionTitles(hydratedInspections);
-        setInspections(hydratedInspections);
+        setInspections(data);
         setLoading(false);
       })
       .catch(() => {

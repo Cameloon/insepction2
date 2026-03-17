@@ -76,6 +76,8 @@ public class InspectionController {
   @PutMapping("/{id}")
   public ResponseEntity<Inspection> updateInspection(@PathVariable Long id, @RequestBody Inspection updated) {
     return inspectionRepository.findById(id).map(inspection -> {
+      if (updated.getTitle() != null)
+        inspection.setTitle(updated.getTitle());
       if (updated.getFacilityName() != null)
         inspection.setFacilityName(updated.getFacilityName());
       if (updated.getDate() != null)
