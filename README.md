@@ -17,7 +17,7 @@ Das Backend ist eine **Spring-Boot-Anwendung** (`backend/`) mit einer klassische
 
 1. Request kommt auf einem Controller-Endpunkt an (z. B. `GET /api/inspections`).
 2. Der Controller lädt/speichert Daten über das passende Repository.
-3. JPA/Hibernate mapped die Entitys in die H2-Datenbank.
+3. JPA/Hibernate mapped die Entities in die H2-Datenbank.
 4. Das Ergebnis wird als JSON zurückgegeben.
 
 Wichtige Details:
@@ -73,27 +73,21 @@ Die Kommunikation erfolgt per **HTTP/JSON über REST**:
 ## Zusammenfassung der geforderten Punkte
 
 ### Motivation und Use Cases
-->  
 Die Anwendung adressiert die strukturierte Durchführung von Inspektionen: Planung, Bearbeitung, Bewertung und Dokumentation in einem durchgängigen Prozess. Typische Use Cases sind interne Qualitätskontrollen, Sicherheitsbegehungen, Facility-Checks und standardisierte Team-Audits mit Fotodokumentation.
 
 ### Architektur der Lösung
-->  
 Es handelt sich um eine zweigeteilte Web-Architektur: React-Frontend für UI/Interaktion und Spring-Boot-Backend als REST-API mit JPA-Persistenz auf H2. Das Frontend ist klar in Seiten und API-Schicht getrennt, das Backend in Controller, Domain-Modelle und Repository-Layer.
 
 ### Verwendete Technologie
-->  
 Frontend: React, TypeScript, Vite, Axios, Recharts, React Router.  
 Backend: Java 17, Spring Boot, Spring Web, Spring Data JPA, Hibernate, H2.  
 Build/Test: npm/Vitest im Frontend, Maven/JUnit im Backend.
 
 ### Farbkonzepte
-->  
 Das UI nutzt ein neutrales Grundlayout mit violettem Sekundärton und orangem Akzent (`global.css` Variablen). Statusfarben sind konsistent codiert: geplant (violett), in Bearbeitung (grau-violett), erfolgreich (orange), fehlgeschlagen (rosa/rot). Dadurch werden Zustände in Listen, Badges und Diagrammen visuell schnell erfassbar.
 
 ### Landing Page
-->  
 Die Landing Page (`LandingPage.tsx`) ist als Einstieg mit Hero-Bereich, Nutzenargumentation und Schnellnavigation (Dashboard/Kontakt) aufgebaut. Zusätzlich werden Kernfunktionen in Feature-Karten und der Projektkontext (DHBW-Projekt) dargestellt.
 
 ### Dashboard und Kernfunktionalitäten
-->  
 Das Dashboard zeigt KPI-Kacheln, Statusverteilung (Pie Chart), zeitliche Entwicklung (Bar Chart) sowie eine Liste aktueller Inspektionen. Kernfunktionalitäten der App sind: Inspektionen anlegen, Status-Workflow (planned → in progress → completed), Schritte verwalten, Ergebnisse/Kommentare/Fotos dokumentieren, Checklisten wiederverwenden und druckfähige Ansichten erzeugen.
