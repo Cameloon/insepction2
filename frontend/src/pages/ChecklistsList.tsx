@@ -56,10 +56,11 @@ export default function ChecklistsList() {
 		setSaving(true);
 		setError('');
 		try {
+			const description = newCl.description;
 			const created = await createChecklist({
 				name: newCl.name,
-				recommendations: newCl.description,
-				description: newCl.description,
+				recommendations: description,
+				description,
 				steps: [],
 			});
 			setChecklists((prev) => [...prev, created]);
@@ -94,9 +95,10 @@ export default function ChecklistsList() {
 		const stepData = addingStep[cl.id];
 		if (!stepData?.title) return;
 		try {
+			const requirement = stepData.description;
 			const updated = await addChecklistStep(cl.id, {
 				title: stepData.title,
-				requirement: stepData.description,
+				requirement,
 				description: stepData.description,
 			});
 			setChecklists((prev) => prev.map((c) => (c.id === cl.id ? updated : c)));

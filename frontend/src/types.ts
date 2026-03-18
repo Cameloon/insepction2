@@ -2,7 +2,6 @@ export interface InspectionStep {
   id?: number;
   title: string;
   description?: string;
-  status?: 'PASSED' | 'FAILED' | 'NOT_APPLICABLE' | 'FULFILLED' | 'NOT_FULFILLED' | 'NA' | 'PENDING';
   result: 'PASSED' | 'FAILED' | 'NOT_APPLICABLE' | 'FULFILLED' | 'NOT_FULFILLED' | 'NA' | 'PENDING';
   comment?: string;
   photoPath?: string;

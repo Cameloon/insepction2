@@ -83,11 +83,10 @@ public class InspectionController {
               step.setComment(updated.getComment());
             if (updated.getPhotoPath() != null)
               step.setPhotoPath(updated.getPhotoPath());
-            if (updated.getChecklistStepId() != null)
-              step.setChecklistStep(
-                  checklistStepRepository.findById(updated.getChecklistStepId())
-                      .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                          "Checklist step not found")));
+            if (updated.getChecklistStepId() != null) {
+              step.setChecklistStepId(updated.getChecklistStepId());
+              attachChecklistStepReference(step);
+            }
           });
       return inspectionRepository.save(inspection);
     }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
