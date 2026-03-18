@@ -1,12 +1,13 @@
 package dhbw.lectures.webe.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
 public class InspectionStep {
 
-  public enum Result {
-    FULFILLED, NOT_FULFILLED, NA, PENDING
+  public enum StepStatus {
+    PASSED, FAILED, NOT_APPLICABLE, FULFILLED, NOT_FULFILLED, NA, PENDING
   }
 
   @Id
@@ -17,12 +18,20 @@ public class InspectionStep {
   private String description;
 
   @Enumerated(EnumType.STRING)
-  private Result result = Result.PENDING;
+  private StepStatus status = StepStatus.PENDING;
 
   @Column(length = 2000)
   private String comment;
 
-  private String photoUrl;
+  private String photoPath;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "checklist_step_id")
+  @JsonIgnore
+  private ChecklistStep checklistStep;
+
+  @Transient
+  private Long checklistStepId;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @com.fasterxml.jackson.annotation.JsonIgnore
@@ -52,12 +61,12 @@ public class InspectionStep {
     this.description = description;
   }
 
-  public Result getResult() {
-    return result;
+  public StepStatus getStatus() {
+    return status;
   }
 
-  public void setResult(Result result) {
-    this.result = result;
+  public void setStatus(StepStatus status) {
+    this.status = status;
   }
 
   public String getComment() {
@@ -68,12 +77,47 @@ public class InspectionStep {
     this.comment = comment;
   }
 
+  public String getPhotoPath() {
+    return photoPath;
+  }
+
+  public void setPhotoPath(String photoPath) {
+    this.photoPath = photoPath;
+  }
+
+  public StepStatus getResult() {
+    return status;
+  }
+
+  public void setResult(StepStatus result) {
+    this.status = result;
+  }
+
   public String getPhotoUrl() {
-    return photoUrl;
+    return photoPath;
   }
 
   public void setPhotoUrl(String photoUrl) {
-    this.photoUrl = photoUrl;
+    this.photoPath = photoUrl;
+  }
+
+  public ChecklistStep getChecklistStep() {
+    return checklistStep;
+  }
+
+  public void setChecklistStep(ChecklistStep checklistStep) {
+    this.checklistStep = checklistStep;
+  }
+
+  public Long getChecklistStepId() {
+    if (checklistStep != null) {
+      return checklistStep.getId();
+    }
+    return checklistStepId;
+  }
+
+  public void setChecklistStepId(Long checklistStepId) {
+    this.checklistStepId = checklistStepId;
   }
 
   public Inspection getInspection() {

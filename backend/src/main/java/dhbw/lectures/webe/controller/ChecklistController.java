@@ -27,8 +27,12 @@ public class ChecklistController {
 
   @PostMapping
   public Checklist createChecklist(@RequestBody Checklist checklist) {
+    applyChecklistCompatibilityFields(checklist);
     if (checklist.getSteps() != null) {
-      checklist.getSteps().forEach(step -> step.setChecklist(checklist));
+      checklist.getSteps().forEach(step -> {
+        applyChecklistStepCompatibilityFields(step);
+        step.setChecklist(checklist);
+      });
     }
     return checklistRepository.save(checklist);
   }
@@ -37,6 +41,7 @@ public class ChecklistController {
   public Checklist addStepToChecklist(@PathVariable Long id, @RequestBody ChecklistStep step) {
     return checklistRepository.findById(id).map(checklist -> {
       step.setChecklist(checklist);
+      applyChecklistStepCompatibilityFields(step);
       checklist.getSteps().add(step);
       return checklistRepository.save(checklist);
     }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -62,6 +67,10 @@ public class ChecklistController {
               step.setTitle(updated.getTitle());
             if (updated.getDescription() != null)
               step.setDescription(updated.getDescription());
+            if (updated.getRequirement() != null)
+              step.setRequirement(updated.getRequirement());
+            if (updated.getDescription() != null || updated.getRequirement() != null)
+              applyChecklistStepCompatibilityFields(step);
             if (updated.getOrderIndex() != null)
               step.setOrderIndex(updated.getOrderIndex());
           });
@@ -74,9 +83,30 @@ public class ChecklistController {
     return checklistRepository.findById(id).map(checklist -> {
       if (updated.getName() != null)
         checklist.setName(updated.getName());
+      if (updated.getPlantName() != null)
+        checklist.setPlantName(updated.getPlantName());
       if (updated.getDescription() != null)
         checklist.setDescription(updated.getDescription());
+      if (updated.getRecommendations() != null)
+        checklist.setRecommendations(updated.getRecommendations());
+      applyChecklistCompatibilityFields(checklist);
       return ResponseEntity.ok(checklistRepository.save(checklist));
     }).orElse(ResponseEntity.notFound().build());
+  }
+
+  private void applyChecklistStepCompatibilityFields(ChecklistStep step) {
+    if (step.getRequirement() == null && step.getDescription() != null) {
+      step.setRequirement(step.getDescription());
+    } else if (step.getDescription() == null && step.getRequirement() != null) {
+      step.setDescription(step.getRequirement());
+    }
+  }
+
+  private void applyChecklistCompatibilityFields(Checklist checklist) {
+    if (checklist.getRecommendations() == null && checklist.getDescription() != null) {
+      checklist.setRecommendations(checklist.getDescription());
+    } else if (checklist.getDescription() == null && checklist.getRecommendations() != null) {
+      checklist.setDescription(checklist.getRecommendations());
+    }
   }
 }

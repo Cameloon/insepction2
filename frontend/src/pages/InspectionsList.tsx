@@ -284,15 +284,19 @@ export default function InspectionsList() {
           steps = cl.steps.map((s) => ({
             title: s.title,
             description: s.description,
+            checklistStepId: s.id,
             result: 'PENDING' as const,
           }));
         }
       }
       const created = await createInspection({
         title: normalizedTitle || undefined,
+        plantName: form.facilityName,
+        inspectionDate: `${form.date}T00:00:00`,
         facilityName: form.facilityName,
         date: form.date,
         responsibleEmployee: form.responsibleEmployee,
+        checklistTemplateId: form.checklistId ? Number(form.checklistId) : undefined,
         status: 'PLANNED',
         steps,
       });

@@ -1,7 +1,9 @@
 package dhbw.lectures.webe.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,19 @@ public class Inspection {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String title;
+  private String plantName;
+  private LocalDateTime inspectionDate;
+  @Column(length = 2000)
+  private String generalComment;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "checklist_template_id")
+  @JsonIgnore
+  private Checklist checklistTemplate;
+
+  @Transient
+  private Long checklistTemplateId;
+
   private String facilityName;
   private LocalDate date;
   private String responsibleEmployee;
@@ -40,6 +55,49 @@ public class Inspection {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getPlantName() {
+    return plantName;
+  }
+
+  public void setPlantName(String plantName) {
+    this.plantName = plantName;
+  }
+
+  public LocalDateTime getInspectionDate() {
+    return inspectionDate;
+  }
+
+  public void setInspectionDate(LocalDateTime inspectionDate) {
+    this.inspectionDate = inspectionDate;
+  }
+
+  public String getGeneralComment() {
+    return generalComment;
+  }
+
+  public void setGeneralComment(String generalComment) {
+    this.generalComment = generalComment;
+  }
+
+  public Checklist getChecklistTemplate() {
+    return checklistTemplate;
+  }
+
+  public void setChecklistTemplate(Checklist checklistTemplate) {
+    this.checklistTemplate = checklistTemplate;
+  }
+
+  public Long getChecklistTemplateId() {
+    if (checklistTemplate != null) {
+      return checklistTemplate.getId();
+    }
+    return checklistTemplateId;
+  }
+
+  public void setChecklistTemplateId(Long checklistTemplateId) {
+    this.checklistTemplateId = checklistTemplateId;
   }
 
   public String getFacilityName() {

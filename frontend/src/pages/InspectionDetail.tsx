@@ -192,12 +192,18 @@ export default function InspectionDetail() {
 		try {
 			const checklist = await createChecklist({
 				name,
+				plantName: inspection.plantName ?? inspection.facilityName,
+				recommendations: `Created from inspection #${inspection.id} (${inspection.facilityName})`,
 				description: `Created from inspection #${inspection.id} (${inspection.facilityName})`,
-				steps: inspection.steps.map((step, index) => ({
-					title: step.title,
-					description: step.description,
-					orderIndex: index,
-				})),
+				steps: inspection.steps.map((step, index) => {
+					const requirement = step.description;
+					return {
+						title: step.title,
+						requirement,
+						description: step.description,
+						orderIndex: index,
+					};
+				}),
 			});
 			setInfo(`Checklist "${checklist.name}" was created successfully.`);
 		} catch {

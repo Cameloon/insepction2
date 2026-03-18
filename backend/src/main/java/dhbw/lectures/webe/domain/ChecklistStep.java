@@ -11,6 +11,7 @@ public class ChecklistStep {
 
     private String title;
     private String description;
+    private String requirement;
     private Integer orderIndex;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,6 +26,9 @@ public class ChecklistStep {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public String getRequirement() { return requirement; }
+    public void setRequirement(String requirement) { this.requirement = requirement; }
 
     public Integer getOrderIndex() { return orderIndex; }
     public void setOrderIndex(Integer orderIndex) { this.orderIndex = orderIndex; }

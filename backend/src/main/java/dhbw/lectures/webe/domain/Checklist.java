@@ -13,6 +13,11 @@ public class Checklist {
 
     private String name;
 
+    private String plantName;
+
+    @Column(length = 2000)
+    private String recommendations;
+
     @Column(length = 2000)
     private String description;
 
@@ -24,6 +29,12 @@ public class Checklist {
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+
+    public String getPlantName() { return plantName; }
+    public void setPlantName(String plantName) { this.plantName = plantName; }
+
+    public String getRecommendations() { return recommendations; }
+    public void setRecommendations(String recommendations) { this.recommendations = recommendations; }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
