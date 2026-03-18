@@ -27,8 +27,16 @@ public class ChecklistController {
 
   @PostMapping
   public Checklist createChecklist(@RequestBody Checklist checklist) {
+    if (checklist.getRecommendations() == null && checklist.getDescription() != null) {
+      checklist.setRecommendations(checklist.getDescription());
+    }
     if (checklist.getSteps() != null) {
-      checklist.getSteps().forEach(step -> step.setChecklist(checklist));
+      checklist.getSteps().forEach(step -> {
+        if (step.getRequirement() == null && step.getDescription() != null) {
+          step.setRequirement(step.getDescription());
+        }
+        step.setChecklist(checklist);
+      });
     }
     return checklistRepository.save(checklist);
   }
@@ -37,6 +45,9 @@ public class ChecklistController {
   public Checklist addStepToChecklist(@PathVariable Long id, @RequestBody ChecklistStep step) {
     return checklistRepository.findById(id).map(checklist -> {
       step.setChecklist(checklist);
+      if (step.getRequirement() == null && step.getDescription() != null) {
+        step.setRequirement(step.getDescription());
+      }
       checklist.getSteps().add(step);
       return checklistRepository.save(checklist);
     }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -62,6 +73,10 @@ public class ChecklistController {
               step.setTitle(updated.getTitle());
             if (updated.getDescription() != null)
               step.setDescription(updated.getDescription());
+            if (updated.getRequirement() != null)
+              step.setRequirement(updated.getRequirement());
+            if (updated.getRequirement() == null && updated.getDescription() != null)
+              step.setRequirement(updated.getDescription());
             if (updated.getOrderIndex() != null)
               step.setOrderIndex(updated.getOrderIndex());
           });
@@ -74,8 +89,14 @@ public class ChecklistController {
     return checklistRepository.findById(id).map(checklist -> {
       if (updated.getName() != null)
         checklist.setName(updated.getName());
+      if (updated.getPlantName() != null)
+        checklist.setPlantName(updated.getPlantName());
       if (updated.getDescription() != null)
         checklist.setDescription(updated.getDescription());
+      if (updated.getRecommendations() != null)
+        checklist.setRecommendations(updated.getRecommendations());
+      if (updated.getRecommendations() == null && updated.getDescription() != null)
+        checklist.setRecommendations(updated.getDescription());
       return ResponseEntity.ok(checklistRepository.save(checklist));
     }).orElse(ResponseEntity.notFound().build());
   }

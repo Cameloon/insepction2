@@ -58,6 +58,7 @@ export default function ChecklistsList() {
 		try {
 			const created = await createChecklist({
 				name: newCl.name,
+				recommendations: newCl.description,
 				description: newCl.description,
 				steps: [],
 			});
@@ -95,6 +96,7 @@ export default function ChecklistsList() {
 		try {
 			const updated = await addChecklistStep(cl.id, {
 				title: stepData.title,
+				requirement: stepData.description,
 				description: stepData.description,
 			});
 			setChecklists((prev) => prev.map((c) => (c.id === cl.id ? updated : c)));

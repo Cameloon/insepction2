@@ -192,9 +192,12 @@ export default function InspectionDetail() {
 		try {
 			const checklist = await createChecklist({
 				name,
+				plantName: inspection.plantName ?? inspection.facilityName,
+				recommendations: `Created from inspection #${inspection.id} (${inspection.facilityName})`,
 				description: `Created from inspection #${inspection.id} (${inspection.facilityName})`,
 				steps: inspection.steps.map((step, index) => ({
 					title: step.title,
+					requirement: step.description,
 					description: step.description,
 					orderIndex: index,
 				})),
